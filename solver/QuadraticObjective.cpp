@@ -67,3 +67,15 @@ QuadraticObjective::resize(unsigned int size) {
 
 	_coefs.resize(size, 0.0);
 }
+
+std::ostream& operator<<(std::ostream& out, const QuadraticObjective& objective) {
+
+	for (std::size_t i = 0; i < objective.getCoefficients().size(); i++) {
+
+		out << "v_" << i << "*" << objective.getCoefficients()[i];
+		if (i < objective.getCoefficients().size() - 1)
+			out << " + ";
+	}
+
+	return out;
+}

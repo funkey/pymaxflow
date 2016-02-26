@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <utility>
+#include <ostream>
 
 #include "Sense.h"
 
@@ -103,6 +104,8 @@ private:
 
 	std::map<std::pair<unsigned int, unsigned int>, double> _quadraticCoefs;
 };
+
+std::ostream& operator<<(std::ostream& out, const QuadraticObjective& objective);
 
 #endif // INFERENCE_QUADRATIC_OBJECTIVE_H__
 

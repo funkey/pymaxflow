@@ -3,6 +3,7 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 #include <util/exceptions.h>
+#include <maxflow/Graph.h>
 #include "logging.h"
 
 template <typename Map, typename K, typename V>
@@ -15,7 +16,7 @@ void genericSetter(Map& map, const K& k, const V& value) { map[k] = value; }
 	template<class T> T* get_pointer(std::shared_ptr<T> p){ return p.get(); }
 #endif
 
-namespace pymaxflow {
+namespace _maxflow {
 
 /**
  * Translates an Exception into a python exception.
@@ -33,7 +34,7 @@ void translateException(const Exception& e) {
  * Defines all the python classes in the module libpymaxflow. Here we decide 
  * which functions and data members we wish to expose.
  */
-BOOST_PYTHON_MODULE(pymaxflow) {
+BOOST_PYTHON_MODULE(_maxflow) {
 
 	boost::python::register_exception_translator<Exception>(&translateException);
 
@@ -48,12 +49,28 @@ BOOST_PYTHON_MODULE(pymaxflow) {
 	boost::python::def("setLogLevel", setLogLevel);
 	boost::python::def("getLogLevel", getLogLevel);
 
+	boost::python::enum_<TerminalType>("TerminalType")
+			.value("Source", Source)
+			.value("Sink", Sink)
+			;
+
 	// GraphInt
-	boost::python::class_<GraphInt, boost::noncopyable>("GraphInt")
-			.def("add_nodes", &GraphInt::add_nodes)
-			.def("add_edge", &GraphInt::add_edge)
-			.def("add_tweights", &GraphInt::add_tweights)
-			.def("maxflow", &GraphInt::maxflow)
+	boost::python::class_<Graph<long long, long long>, boost::noncopyable>("GraphInt", boost::python::init<std::size_t, std::size_t>())
+			.def("add_nodes", &Graph<long long, long long>::add_nodes)
+			.def("add_edge", &Graph<long long, long long>::add_edge)
+			.def("add_tedge", &Graph<long long, long long>::add_tedge)
+			.def("maxflow", &Graph<long long, long long>::maxflow)
+			.def("get_segment", &Graph<long long, long long>::what_segment)
+			;
+
+	// GraphFloat
+	boost::python::class_<Graph<double, double>, boost::noncopyable>("GraphFloat", boost::python::init<std::size_t, std::size_t>())
+			.def("add_nodes", &Graph<double, double>::add_nodes)
+			.def("add_edge", &Graph<double, double>::add_edge)
+			.def("add_tedge", &Graph<double, double>::add_tedge)
+			.def("maxflow", &Graph<double, double>::maxflow)
+			.def("get_segment", &Graph<double, double>::what_segment)
+			;
 
 	//// Crag
 	//boost::python::class_<Crag, boost::noncopyable>("Crag")
@@ -89,4 +106,4 @@ BOOST_PYTHON_MODULE(pymaxflow) {
 
 }
 
-} // namespace pymaxflow
+} // namespace _maxflow

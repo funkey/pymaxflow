@@ -1,1 +1,1 @@
-define_module(maxflow OBJECT LINKS solver lemon-hg)
+define_module(maxflow HEADER LINKS solver lemon-hg)
