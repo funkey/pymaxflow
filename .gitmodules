@@ -1,6 +1,6 @@
 [submodule "cmake"]
 	path = cmake
-	url = /home/jan/workspace/projects/candidate_mc/src/candidate_mc/cmake
+	url = https://github.com/funkey/cmake
 [submodule "modules/util"]
 	path = modules/util
-	url = /home/jan/workspace/projects/candidate_mc/src/candidate_mc/modules/util
+	url = https://github.com/funkey/util
