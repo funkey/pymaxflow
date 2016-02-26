@@ -66,17 +66,20 @@ private:
 	GraphType::NodeMap<CapacityType> _sink_caps;
 	GraphType::ArcMap<CapacityType>  _caps;
 
-	std::size_t num_nodes;
+	std::size_t _num_nodes;
 
 	std::unique_ptr<LinearSolverBackend> _solver;
 };
 
 template <typename CapacityType, typename FlowType>
-Graph::Graph(std::size_t node_num_max, std::size_t edge_num_max) :
+Graph<CapacityType, FlowType>::Graph(std::size_t node_num_max, std::size_t edge_num_max) :
+	_source_caps(_graph),
+	_sink_caps(_graph),
+	_caps(_graph),
 	_num_nodes(0) {
 
 	SolverFactory factory;
-	_solver = factory.createLinearSolverBackend();
+	_solver = std::unique_ptr<LinearSolverBackend>(factory.createLinearSolverBackend());
 }
 
 #endif // PYMAXFLOW_MAXFLOW_GRAPH_H__

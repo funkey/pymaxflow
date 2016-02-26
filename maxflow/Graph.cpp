@@ -1,7 +1,7 @@
 #include <Graph.h>
 
-typedef Graph<int>   GraphInt;
-typedef Graph<float> GraphFloat;
+typedef Graph<int,   int>   GraphInt;
+typedef Graph<float, float> GraphFloat;
 
-template <> Graph<int>;
-template <> Graph<float>;
+template class Graph<int, int>;
+template class Graph<float, float>;

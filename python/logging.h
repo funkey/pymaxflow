@@ -1,9 +1,9 @@
-#ifndef CANDIDATE_MC_PYTHON_LOGGING_H__
-#define CANDIDATE_MC_PYTHON_LOGGING_H__
+#ifndef PYMAXFLOW_PYTHON_LOGGING_H__
+#define PYMAXFLOW_PYTHON_LOGGING_H__
 
 #include <util/Logger.h>
 
-namespace pycmc {
+namespace pymaxflow {
 
 extern logger::LogChannel pylog;
 
@@ -19,5 +19,5 @@ void setLogLevel(logger::LogLevel logLevel);
 
 } // namespace pycmc
 
-#endif // CANDIDATE_MC_PYTHON_LOGGING_H__
+#endif // PYMAXFLOW_PYTHON_LOGGING_H__
 

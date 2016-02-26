@@ -3,26 +3,12 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 #include <util/exceptions.h>
-#include <crag/Crag.h>
-#include <crag/CragVolumes.h>
-#include <io/Hdf5CragStore.h>
-#include <io/Hdf5VolumeStore.h>
-#include <io/volumes.h>
-#include <inference/Costs.h>
-#include <inference/RandomForest.h>
-#include <inference/CragSolution.h>
-#include <learning/BundleOptimizer.h>
-#include <learning/Loss.h>
-#include "PyOracle.h"
 #include "logging.h"
 
 template <typename Map, typename K, typename V>
 const V& genericGetter(const Map& map, const K& k) { return map[k]; }
 template <typename Map, typename K, typename V>
 void genericSetter(Map& map, const K& k, const V& value) { map[k] = value; }
-
-template <typename Map, typename K, typename V>
-void featuresSetter(Map& map, const K& k, const V& value) { map.set(k, value); }
 
 #if defined __clang__ && __clang_major__ < 6
 // std::shared_ptr support
@@ -61,6 +47,13 @@ BOOST_PYTHON_MODULE(pymaxflow) {
 			;
 	boost::python::def("setLogLevel", setLogLevel);
 	boost::python::def("getLogLevel", getLogLevel);
+
+	// GraphInt
+	boost::python::class_<GraphInt, boost::noncopyable>("GraphInt")
+			.def("add_nodes", &GraphInt::add_nodes)
+			.def("add_edge", &GraphInt::add_edge)
+			.def("add_tweights", &GraphInt::add_tweights)
+			.def("maxflow", &GraphInt::maxflow)
 
 	//// Crag
 	//boost::python::class_<Crag, boost::noncopyable>("Crag")
